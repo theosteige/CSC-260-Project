@@ -1,35 +1,19 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './styles/CodeReview.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+function CodeReview() {
+  const [currentEmail, setEmail] = useState("example@union.edu");
+  const [classList, setClassList] = useState(null);
+  cosnt [currentAssignment, setAssignment] = useState(null);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {currentEmail === null &&  <Login setEmail = {setEmail} />}
+      <AssignmentView currentAssignment={currentAssignment} />
     </>
   )
 }
 
-export default App
+export default CodeReview
