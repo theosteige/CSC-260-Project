@@ -22,7 +22,7 @@ We will reach out to that person to offer them opportunities to contribute more 
 What will we do if some member violates any agreement in this contract? 
 We can simply address it as a team and try to correct the violation to move forward with the project. If this doesn't work we will reach out to the professor.
 
-Signed with love,
+Signed,
 
 Theo Steiger
 Ian Schunk
