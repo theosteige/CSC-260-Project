@@ -1,4 +1,5 @@
 import React from 'react';
+import './CodeSection.css';
 
 function CodeSection({ codeContent, onCodeChange }) {
   const handleChange = (e) => {
@@ -6,12 +7,12 @@ function CodeSection({ codeContent, onCodeChange }) {
   };
 
   return (
-    <div style={{ width: '50%', padding: '10px' }}>
+    <div className="code-section-container">
       <h3>Code Editor</h3>
       <textarea
         value={codeContent}
         onChange={handleChange}
-        style={{ width: '100%', height: '80vh' }}
+        className="code-editor-textarea"
       />
     </div>
   );

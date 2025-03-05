@@ -1,35 +1,24 @@
-/* Styles for LeftNav component */
-.left-nav {
+.left-nav-container {
     width: 20%;
     border-right: 1px solid #ccc;
     padding: 10px;
-    box-sizing: border-box;
-    background-color: #fff;
   }
   
-  .left-nav h3 {
-    text-align: center;
-    margin-bottom: 10px;
+  .left-nav-header {
+    margin: 0;
   }
   
-  .left-nav ul {
+  .left-nav-list {
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
   
-  .left-nav li {
-    padding: 8px;
+  .left-nav-item {
     cursor: pointer;
-    border-radius: 4px;
-    margin-bottom: 5px;
   }
   
-  .left-nav li:hover {
-    background-color: #f2f2f2;
-  }
-  
-  .left-nav li.active {
+  .left-nav-item.selected {
     font-weight: bold;
-    background-color: #e0e0e0;
   }
   

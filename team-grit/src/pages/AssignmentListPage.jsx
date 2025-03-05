@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AssignmentList from '../components/AssignmentList';
 import './AssignmentListPage.css'
 
-function AssignmentListPage({currentClass}) {
+function AssignmentListPage() {
     // extract classID from url
     const { classId } = useParams();
     // state vars

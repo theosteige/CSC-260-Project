@@ -1,22 +1,28 @@
 import React from 'react';
+import './LeftNav.css';
 
 function LeftNav({ files, selectedFile, onFileSelect }) {
+  const renderFiles = files.map(file => {
+    let className = 'left-nav-item';
+    if (file.id === selectedFile) {
+      className += ' selected';
+    }
+    return (
+      <li
+        key={file.id}
+        onClick={() => onFileSelect(file.id)}
+        className={className}
+      >
+        {file.name}
+      </li>
+    );
+  });
+
   return (
-    <div style={{ width: '20%', borderRight: '1px solid #ccc', padding: '10px' }}>
-      <h3>Files</h3>
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {files.map(file => (
-          <li 
-            key={file.id}
-            onClick={() => onFileSelect(file.id)}
-            style={{
-              cursor: 'pointer',
-              fontWeight: file.id === selectedFile ? 'bold' : 'normal'
-            }}
-          >
-            {file.name}
-          </li>
-        ))}
+    <div className="left-nav-container">
+      <h3 className="left-nav-header">Group Members</h3>
+      <ul className="left-nav-list">
+        {renderFiles}
       </ul>
     </div>
   );
