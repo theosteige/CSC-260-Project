@@ -29,3 +29,5 @@ function AssignmentListPage() {
         </div>
     );
 }
+
+export default AssignmentListPage;
