@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClassList from '../components/ClassList';
+import './ClassListPage.css'
 
 function ClassListPage() {
   const [classes, setClasses] = useState([]);
@@ -19,9 +20,11 @@ function ClassListPage() {
   };
 
   return (
-    <div>
+    <div className='class-list-page'>
       <h2>Classes</h2>
+      <div className='class-list'>
       <ClassList classes={classes} onSelectClass={handleSelectClass} />
+      </div>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AssignmentList from '../components/AssignmentList';
+import './AssignmentListPage.css'
 
-function AssignmentListPage() {
+function AssignmentListPage({currentClass}) {
     // extract classID from url
     const { classId } = useParams();
     // state vars
@@ -23,9 +24,11 @@ function AssignmentListPage() {
     };
 
     return (
-        <div>
-            <h2>Assignments for Class {classId}</h2>
+        <div className='assignment-list-page'>
+            <h2>Assignments for {classId}</h2>
+            <div className='assignment-list'>
             <AssignmentList assignments={assignments} onSelectAssignment={handleSelectAssignment} />
+            </div>
         </div>
     );
 }
