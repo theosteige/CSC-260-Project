@@ -1,0 +1,28 @@
+/* Styles for ClassListPage */
+.class-list-page {
+    padding: 20px;
+  }
+  
+  .class-list-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .class-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .class-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #fff;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }
+  
+  .class-list li:hover {
+    background-color: #f2f2f2;
+  }
+  
