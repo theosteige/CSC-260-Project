@@ -15,8 +15,8 @@ function CodeViewPage() {
   useEffect(() => {
     // Placeholder for fetching files and comments for the given assignmentId
     const dummyFiles = [
-      { id: 'file1', name: 'main.js' },
-      { id: 'file2', name: 'helper.js' }
+      { id: 'student1-file1', name: 'student1' },
+      { id: 'student2-file1', name: 'student2' }
     ];
     setFiles(dummyFiles);
     if (dummyFiles.length > 0) {
