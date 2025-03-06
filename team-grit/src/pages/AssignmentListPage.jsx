@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AssignmentList from '../components/AssignmentList';
-import './AssignmentListPage.css'
+import './AssignmentListPage.css';
+import '../components/BackButton';
+import BackButton from '../components/BackButton';
 
 function AssignmentListPage() {
     // extract classID from url
@@ -25,6 +27,7 @@ function AssignmentListPage() {
 
     return (
         <div className='assignment-list-page'>
+            <BackButton />
             <h2>Assignments for {classId}</h2>
             <div className='assignment-list'>
             <AssignmentList assignments={assignments} onSelectAssignment={handleSelectAssignment} />

@@ -4,6 +4,7 @@ import LeftNav from '../components/LeftNav';
 import CodeSection from '../components/CodeSection';
 import CommentsSection from '../components/CommentsSection';
 import './CodeViewPage.css'
+import BackButton from '../components/BackButton';
 
 function CodeViewPage() {
   const { assignmentId } = useParams();
@@ -50,6 +51,7 @@ function CodeViewPage() {
 
   return (
     <div className='code-view-page'>
+      <BackButton />
       <LeftNav files={files} selectedFile={selectedFile} onFileSelect={handleFileSelect} />
       <CodeSection codeContent={codeContent} onCodeChange={handleCodeChange} />
       <CommentsSection comments={comments} onAddComment={handleAddComment} />
