@@ -12,13 +12,13 @@ function ClassListPage() {
   useEffect(() => {
     // Placeholder for fetching classes from the backend
     setClasses([
-      { id: 'class1', name: 'Math 101' },
-      { id: 'class2', name: 'Physics 201' }
+      { id: 1, name: 'Math 101' },
+      { id: 2, name: 'Physics 201' }
     ]);
   }, []);
 
   const handleSelectClass = (classId) => {
-    navigate(`/assignments/${classId}`);
+    navigate(`/assignments/${classId}`, { state: { currentClass: classes[parseInt(classId)-1]['name'] }});
   };
 
   return (
