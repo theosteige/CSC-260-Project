@@ -22,7 +22,7 @@ function CodeViewPage() {
     setFiles(dummyFiles);
     if (dummyFiles.length > 0) {
       setSelectedFile(dummyFiles[0].id);
-      setCodeContent('// Code for ' + dummyFiles[0].name);
+      setCodeContent('// Code for ' + dummyFiles[0].id);
     }
     setComments([
       { id: 'comment1', author: 'Peer1', text: 'Great code!' },
