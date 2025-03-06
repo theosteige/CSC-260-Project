@@ -18,7 +18,7 @@ function LoginPage({ onLoginSuccess }) {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2>GRIT Code Review</h2>
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <div>
