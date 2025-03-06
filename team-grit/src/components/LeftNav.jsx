@@ -20,10 +20,12 @@ function LeftNav({ files, selectedFile, onFileSelect }) {
 
   return (
     <div className="left-nav-container">
-      <h3 className="left-nav-header">Group Members</h3>
-      <ul className="left-nav-list">
+      <div className='left-nav'>
+      <h3>Group Members</h3>
+      <ul>
         {renderFiles}
       </ul>
+      </div>
     </div>
   );
 }

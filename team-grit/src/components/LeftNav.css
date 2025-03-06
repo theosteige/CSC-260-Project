@@ -4,21 +4,25 @@
     padding: 10px;
   }
   
-  .left-nav-header {
+  .left-nav h3 {
     margin: 0;
   }
   
-  .left-nav-list {
+  .left-nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
   
-  .left-nav-item {
+  .left-nav li {
     cursor: pointer;
   }
+
+  .left-nav li:hover {
+    color: gray;
+  }
   
-  .left-nav-item.selected {
+  .left-nav li.selected {
     font-weight: bold;
   }
   
