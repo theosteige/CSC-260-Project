@@ -18,8 +18,8 @@ function AssignmentListPage() {
     useEffect(() => {
         // temporary get assignments
         setAssignments([
-          { id: 1, title: 'Assignment 1' },
-          { id: 2, title: 'Assignment 2' }
+          { id: 1, title: 'Assignment 1', due: '3/6/25' },
+          { id: 2, title: 'Assignment 2', due: '3/13/25' }
         ]);
       }, [classId]);
 
@@ -30,7 +30,8 @@ function AssignmentListPage() {
     return (
         <div className='assignment-list-page'>
             <BackButton />
-            <h2>Assignments for {currentClass}</h2>
+            <h2>Assignments for {currentClass.name}</h2>
+            {currentClass.description}
             <div className='assignment-list'>
             <AssignmentList assignments={assignments} onSelectAssignment={handleSelectAssignment} />
             </div>

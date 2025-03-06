@@ -9,7 +9,7 @@ function AssignmentList({ assignments, onSelectAssignment }) {
           onClick={() => onSelectAssignment(assignment.id)}
           style={{ cursor: 'pointer' }}
         >
-          {assignment.title}
+          {assignment.title} | Due: {assignment.due}
         </li>
       ))}
     </ul>

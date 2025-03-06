@@ -1,0 +1,12 @@
+.back-button {
+    text-align: left;
+}
+
+.back-button button {
+    padding: 10px;
+    background-color: #862633;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
