@@ -3,11 +3,13 @@ import './CommentsSection.css';
 
 function CommentsSection({ comments, onAddComment }) {
   const [commentText, setCommentText] = useState('');
+  const [commentLine, setCommentLine] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (commentText.trim()) {
-      onAddComment(commentText);
+    if (commentText.trim() && parseInt(commentLine)) {
+      onAddComment(commentText, commentLine);
+      setCommentLine('');
       setCommentText('');
     }
   };
@@ -18,11 +20,17 @@ function CommentsSection({ comments, onAddComment }) {
       <ul className="comments-list">
         {comments.map((comment) => (
           <li key={comment.id}>
-            <strong>{comment.author}:</strong> {comment.text}
+            On line {comment.line},<strong> {comment.author}</strong> said: {comment.text}
           </li>
         ))}
       </ul>
       <form onSubmit={handleSubmit} className="comment-form">
+        <textarea
+          value={commentLine}
+          onChange={(e) => setCommentLine(e.target.value)}
+          placeholder="Enter a line number"
+          className="comment-linearea"
+        />
         <textarea
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}

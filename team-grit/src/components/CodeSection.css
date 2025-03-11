@@ -3,6 +3,16 @@
   padding: 10px;
 }
 
+.code-section-container button {
+  width: 100px;
+  padding: 10px;
+  background-color: #862633;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .code-editor-textarea {
   width: 100%;
   height: 80vh;

@@ -25,8 +25,8 @@ function CodeViewPage() {
       setCodeContent('// Code for ' + dummyFiles[0].id);
     }
     setComments([
-      { id: 'comment1', author: 'Peer1', text: 'Great code!' },
-      { id: 'comment2', author: 'Peer2', text: 'Consider refactoring this function.' }
+      { id: 'comment1', author: 'Peer1', text: 'Great code!', line:'1' },
+      { id: 'comment2', author: 'Peer2', text: 'Consider refactoring this function.', line:'2' }
     ]);
   }, [assignmentId]);
 
@@ -40,11 +40,12 @@ function CodeViewPage() {
     setCodeContent(newCode);
   };
 
-  const handleAddComment = (commentText) => {
+  const handleAddComment = (commentText, commentLine) => {
     const newComment = {
       id: 'comment' + (comments.length + 1),
       author: 'CurrentUser', // Replace with actual user data
       text: commentText,
+      line: commentLine
     };
     setComments([...comments, newComment]);
   };

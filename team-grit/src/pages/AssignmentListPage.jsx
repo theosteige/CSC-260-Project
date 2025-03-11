@@ -18,7 +18,7 @@ function AssignmentListPage() {
     useEffect(() => {
         // temporary get assignments
         setAssignments([
-          { id: 1, title: 'Assignment 1', due: '3/6/25' },
+          { id: 1, title: 'Assignment 1', due: '3/6/25',  },
           { id: 2, title: 'Assignment 2', due: '3/13/25' }
         ]);
       }, [classId]);

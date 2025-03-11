@@ -1,19 +1,48 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import './CodeSection.css';
 
-function CodeSection({ codeContent, onCodeChange }) {
+function CodeSection({ onCodeChange }) {
+  const [code, setCode] = useState('');
+  const fileInputRef = useRef(null);
+
   const handleChange = (e) => {
-    onCodeChange(e.target.value);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        setCode(e.target.result);
+      };
+  
+      reader.readAsText(file);
+    }
   };
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  let lines = '';
+  if (code != '') {
+    lines = code.split('\n').flatMap((content, index) => index + 1 + '    ' + content + '\n' );
+  }
 
   return (
     <div className="code-section-container">
       <h3>Code Editor</h3>
-      <textarea
-        value={codeContent}
+      <button onClick={handleButtonClick}>
+        Upload File
+      </button>
+      <input
+        type="file"
+        style={{ display: 'none' }}
+        accept=".py, .java, .txt"
         onChange={handleChange}
-        className="code-editor-textarea"
+        ref={fileInputRef}
       />
+      <div className='code-section-textarea'>
+      <pre>{lines}</pre>
+      </div>
     </div>
   );
 }

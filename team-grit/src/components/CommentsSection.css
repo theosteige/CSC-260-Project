@@ -19,6 +19,12 @@
   resize: none;
 }
 
+.comment-linearea {
+  width: 100%;
+  height: 20px;
+  resize: none;
+}
+
 .submit-button {
   margin-top: 5px;
 }

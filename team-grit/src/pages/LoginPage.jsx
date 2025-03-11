@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/TeamGrit.png'
 import './LoginPage.css';
 
 function LoginPage({ onLoginSuccess }) {
@@ -18,7 +19,8 @@ function LoginPage({ onLoginSuccess }) {
 
   return (
     <div className="login-container">
-      <h2>GRIT Code Review</h2>
+      <img src={logo}></img>
+      <h2> Code Review Login </h2>
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <div>

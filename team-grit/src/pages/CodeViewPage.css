@@ -1,5 +1,6 @@
 /* Styles for CodeViewPage */
 .code-view-page {
+    padding: 20px;
     display: flex;
     height: 100vh;
   }

@@ -7,10 +7,10 @@ import CodeViewPage from './pages/CodeViewPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  
   const handleLoginSuccess = () => {
-    setIsAuthenticated(true);
-  };
+      setIsAuthenticated(true);
+    };
 
   return (
     <Router>
