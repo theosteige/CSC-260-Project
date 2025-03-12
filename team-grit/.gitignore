@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+backend/backend/__pycache__/
+backend/venv/
+backend/api/
 dist
 dist-ssr
 *.local
@@ -22,6 +25,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-/backend/venv
-/backend/__pycache__
