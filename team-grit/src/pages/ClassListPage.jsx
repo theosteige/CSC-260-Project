@@ -9,12 +9,18 @@ function ClassListPage() {
   const [classes, setClasses] = useState([]);
   const navigate = useNavigate();
 
+  const getClasses = async (setClasses) => {
+    const url = "http://localhost:8000/api/classes/";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    setClasses(json);
+  }
+
   useEffect(() => {
-    // Placeholder for fetching classes from the backend
-    setClasses([
-      { id: 1, name: 'Math 101', description: 'Sample description 1!' },
-      { id: 2, name: 'Physics 201', description: 'Sample description 2!' }
-    ]);
+    getClasses(setClasses);
   }, []);
 
   const handleSelectClass = (classId) => {

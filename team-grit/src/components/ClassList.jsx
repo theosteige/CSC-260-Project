@@ -9,7 +9,7 @@ function ClassList({ classes, onSelectClass }) {
           onClick={() => onSelectClass(cls.id)}
           style={{ cursor: 'pointer' }}
         >
-          {cls.name}
+          {cls.code} | {cls.name}
         </li>
       ))}
     </ul>
