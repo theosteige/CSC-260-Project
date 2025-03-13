@@ -8,7 +8,7 @@ function AssignmentListPage({ currentUser }) {
   const [assignments, setAssignments] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const currentClass = location.state.currentClass;
+  const currentClass = location.state.currentClass; // full class object with id, name, description, etc.
 
   const getAssignments = async (setAssignments) => {
     const url = "http://localhost:8000/api/assignments/";
@@ -17,6 +17,7 @@ function AssignmentListPage({ currentUser }) {
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
+    // Filter assignments that belong to the current class using its id
     const classAssignments = json.filter(
       (assignment) => assignment.course === currentClass.id
     );
@@ -32,12 +33,12 @@ function AssignmentListPage({ currentUser }) {
   };
 
   const handleAddAssignment = () => {
-    console.log(currentClass.id);
-    navigate(`/create-assignment/${currentClass.id}`);
+    // Pass the full currentClass object to the create-assignment page
+    navigate(`/create-assignment/${currentClass.id}`, { state: { currentClass } });
   };
 
   return (
-    <div className="assignment-list-page">
+    <div className='assignment-list-page'>
       <div className="header">
         <BackButton />
         {currentUser.role === 'teacher' && (
@@ -47,8 +48,8 @@ function AssignmentListPage({ currentUser }) {
         )}
       </div>
       <h2>Assignments for {currentClass.name}</h2>
-      {currentClass.description}
-      <div className="assignment-list">
+      <p>{currentClass.description}</p>
+      <div className='assignment-list'>
         <AssignmentList
           assignments={assignments}
           onSelectAssignment={handleSelectAssignment}

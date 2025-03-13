@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import './CreateAssignmentPage.css';
 
 function CreateAssignmentPage({ addAssignment }) {
   const navigate = useNavigate();
-  const { classId } = useParams(); // Get the classId from the URL.
+  const { classId } = useParams();
+  const location = useLocation();
+  // Retrieve the full current class from location state; fallback to an object with just id if not present
+  const currentClass = location.state?.currentClass || { id: classId };
+
   const [assignmentName, setAssignmentName] = useState('');
   const [assignmentDescription, setAssignmentDescription] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
@@ -21,12 +25,12 @@ function CreateAssignmentPage({ addAssignment }) {
     }
 
     const newAssignment = {
-      course: classId,
+      course: currentClass.id,
       name: assignmentName,
       description: assignmentDescription,
       release_date: releaseDate,
       submission_deadline: submissionDeadline,
-      commenting_deadline: commentingDeadline,
+      commenting_deadline: commentingDeadline
     };
 
     console.log(JSON.stringify(newAssignment));
@@ -50,8 +54,8 @@ function CreateAssignmentPage({ addAssignment }) {
         addAssignment(createdAssignment);
       }
 
-      // After creating the assignment, navigate back to the assignment list for this class.
-      navigate(`/assignments/${classId}`, { state: { currentClass: { id: classId } } });
+      // Navigate back to the assignment list page, passing the full currentClass object
+      navigate(`/assignments/${currentClass.id}`, { state: { currentClass } });
     } catch (err) {
       console.error('Error creating assignment:', err);
       setError('An error occurred while creating the assignment.');

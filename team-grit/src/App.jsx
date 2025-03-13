@@ -20,71 +20,65 @@ function App() {
   };
 
   const handleAddAssignment = (newAssignment) => {
-    // This function can update your assignments state if needed
+    // Optionally update global state for assignments here
     console.log('New assignment created:', newAssignment);
   };
 
   return (
     <Router>
       <Routes>
-        <Route 
-          path="/login" 
-          element={<LoginPage onLoginSuccess={handleLoginSuccess} />} 
-        />
-        <Route 
-          path="/classes" 
+        <Route path="/login" element={<LoginPage onLoginSuccess={handleLoginSuccess} />} />
+        <Route
+          path="/classes"
           element={
             currentUser ? (
               <ClassListPage currentUser={currentUser} classes={classes} />
             ) : (
               <Navigate to="/login" />
             )
-          } 
+          }
         />
-        <Route 
-          path="/assignments/:classId" 
+        <Route
+          path="/assignments/:classId"
           element={
             currentUser ? (
               <AssignmentListPage currentUser={currentUser} />
             ) : (
               <Navigate to="/login" />
             )
-          } 
+          }
         />
-        <Route 
-          path="/code/:assignmentId" 
+        <Route
+          path="/code/:assignmentId"
           element={
             currentUser ? (
               <CodeViewPage currentUser={currentUser} />
             ) : (
               <Navigate to="/login" />
             )
-          } 
+          }
         />
-        <Route 
-          path="/create-class" 
+        <Route
+          path="/create-class"
           element={
             currentUser && currentUser.role === 'teacher' ? (
               <CreateClassPage teacherID={currentUser.id} addClass={handleAddClass} />
             ) : (
               <Navigate to="/classes" />
             )
-          } 
+          }
         />
-        <Route 
-          path="/create-assignment/:classId" 
+        <Route
+          path="/create-assignment/:classId"
           element={
             currentUser && currentUser.role === 'teacher' ? (
               <CreateAssignmentPage addAssignment={handleAddAssignment} />
             ) : (
               <Navigate to="/assignments/:classId" />
             )
-          } 
+          }
         />
-        <Route 
-          path="*" 
-          element={<Navigate to={currentUser ? "/classes" : "/login"} />} 
-        />
+        <Route path="*" element={<Navigate to={currentUser ? "/classes" : "/login"} />} />
       </Routes>
     </Router>
   );
