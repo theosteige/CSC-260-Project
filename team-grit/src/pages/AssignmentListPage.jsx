@@ -15,12 +15,18 @@ function AssignmentListPage() {
     const location = useLocation();
     const currentClass = location.state.currentClass;
 
+    const getAssignments = async (setAssignments) => {
+        const url = "http://localhost:8000/api/assignments/";
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        setAssignments(json);
+      }
+
     useEffect(() => {
-        // temporary get assignments
-        setAssignments([
-          { id: 1, title: 'Assignment 1', due: '3/6/25',  },
-          { id: 2, title: 'Assignment 2', due: '3/13/25' }
-        ]);
+        getAssignments(setAssignments);
       }, [classId]);
 
     const handleSelectAssignment = (assignmentId) => {
