@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateClassPage.css';
 
-function CreateClassPage({ addClass }) {
+function CreateClassPage({ teacherID, addClass }) {
   const navigate = useNavigate();
   const [className, setClassName] = useState('');
   const [classCode, setClassCode] = useState('');
   const [classTerm, setClassTerm] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [teacher, setTeacher] = useState(teacherID);
+  const [students, setStudents] = useState('');
+  
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -21,9 +26,9 @@ function CreateClassPage({ addClass }) {
       code : classCode, // Replace with input or generated value as needed
       name : className,
       term : classTerm,
-      start_date : "2025-01-06T06:00:00Z",
-      end_date : "2025-03-14T18:00:00Z",
-      teacher : 1, 
+      start_date : startDate,
+      end_date : endDate,
+      teacher : teacher, 
       students : [
         2,
         3,
@@ -50,9 +55,6 @@ function CreateClassPage({ addClass }) {
       // id : 10 // Replace with input or default value
       // Remove "roster" if the API does not expect it, or handle it separately if needed
     };
-
-    console.log(newClass)
-    console.log(JSON.stringify(newClass))
 
     try {
       const response = await fetch('http://127.0.0.1:8000/api/classes/', {
@@ -116,6 +118,24 @@ function CreateClassPage({ addClass }) {
             onChange={(e) => setClassTerm(e.target.value)} 
             required
           ></textarea>
+        </div>
+        <div className="form-group">
+          <label>Select Start Date:</label>
+          <input 
+            type="date" 
+            value={startDate} 
+            onChange={(e) => setStartDate(e.target.value)} 
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Select End Date:</label>
+          <input 
+            type="date" 
+            value={startDate} 
+            onChange={(e) => setEndDate(e.target.value)} 
+            required
+          />
         </div>
         {error && <p className="error">{error}</p>}
         <button type="submit" className="header-button">Create Class</button>

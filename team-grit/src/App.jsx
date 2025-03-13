@@ -59,7 +59,7 @@ function App() {
           path="/create-class" 
           element={
             currentUser && currentUser.role === 'teacher' ? (
-              <CreateClassPage addClass={handleAddClass} />
+              <CreateClassPage teacherID={currentUser.id} addClass={handleAddClass} />
             ) : (
               <Navigate to="/classes" />
             )
