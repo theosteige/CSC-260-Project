@@ -5,7 +5,8 @@ import './CreateClassPage.css';
 function CreateClassPage({ addClass }) {
   const navigate = useNavigate();
   const [className, setClassName] = useState('');
-  const [roster, setRoster] = useState('');
+  const [classCode, setClassCode] = useState('');
+  const [classTerm, setClassTerm] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -16,16 +17,18 @@ function CreateClassPage({ addClass }) {
       return;
     }
 
-    // Process the roster: split by newline or comma and remove empty entries
-    const rosterArray = roster
-      .split(/[\n,]+/)
-      .map(name => name.trim())
-      .filter(name => name.length > 0);
-
     const newClass = {
-      name: className,
-      roster: rosterArray,
+      id : 4,
+      code : classCode, // Replace with input or generated value as needed
+      name : className,
+      term : classTerm,
+      
+      // id : 10 // Replace with input or default value
+      // Remove "roster" if the API does not expect it, or handle it separately if needed
     };
+
+    console.log(newClass)
+    console.log(JSON.stringify(newClass))
 
     try {
       const response = await fetch('http://127.0.0.1:8000/api/classes/', {
@@ -73,11 +76,20 @@ function CreateClassPage({ addClass }) {
           />
         </div>
         <div className="form-group">
-          <label>Class Roster (separated by newline or comma):</label>
+          <label>Class Code (e.g CSC 101):</label>
           <textarea 
-            value={roster} 
-            onChange={(e) => setRoster(e.target.value)} 
-            rows="5" 
+            type="text" 
+            value={classCode} 
+            onChange={(e) => setClassCode(e.target.value)} 
+            required
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label>Class Term (e.g Winter 2025):</label>
+          <textarea 
+            type="text" 
+            value={classTerm} 
+            onChange={(e) => setClassTerm(e.target.value)} 
             required
           ></textarea>
         </div>
