@@ -20,12 +20,16 @@ function ClassListPage({ currentUser }) {
     navigate(`/assignments/${classId}`, { state: { currentClass: selectedClass } });
   };
 
+  const handleAddClass = () => {
+    navigate('/create-class')
+  }
+
   return (
     <div className="class-list-page">
       <div className="header">
         <BackButton />
         {currentUser.role === 'teacher' && (
-          <button className="header-button">
+          <button className="header-button" onClick={handleAddClass}>
             Add Class
           </button>
         )}
