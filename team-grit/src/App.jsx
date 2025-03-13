@@ -58,7 +58,7 @@ function App() {
         <Route 
           path="/create-class" 
           element={
-            currentUser && currentUser.role === 'professor' ? (
+            currentUser && currentUser.role === 'teacher' ? (
               <CreateClassPage addClass={handleAddClass} />
             ) : (
               <Navigate to="/classes" />
