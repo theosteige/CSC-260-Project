@@ -29,7 +29,7 @@ function ClassListPage({ currentUser }) {
       <div className="header">
         <BackButton />
         {currentUser.role === 'teacher' && (
-          <button className="header-button" onClick={handleAddClass}>
+          <button className="header-button">
             Add Class
           </button>
         )}
