@@ -5,6 +5,7 @@ import ClassListPage from './pages/ClassListPage';
 import AssignmentListPage from './pages/AssignmentListPage';
 import CodeViewPage from './pages/CodeViewPage';
 import CreateClassPage from './pages/CreateClassPage';
+import CreateAssignmentPage from './pages/CreateAssignmentPage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -16,6 +17,10 @@ function App() {
 
   const handleAddClass = (newClass) => {
     setClasses(prevClasses => [...prevClasses, newClass]);
+  };
+
+  const handleAddAssignment = (newAssignment) => {
+    setClasses(prevAssignment => [...prevAssignment, newAssignment]);
   };
 
   return (
@@ -39,7 +44,7 @@ function App() {
           path="/assignments/:classId" 
           element={
             currentUser ? (
-              <AssignmentListPage currentUser={currentUser} classes={classes} />
+              <AssignmentListPage currentUser={currentUser} />
             ) : (
               <Navigate to="/login" />
             )
@@ -62,6 +67,16 @@ function App() {
               <CreateClassPage teacherID={currentUser.id} addClass={handleAddClass} />
             ) : (
               <Navigate to="/classes" />
+            )
+          } 
+        />
+        <Route 
+          path="/create-assignent" 
+          element={
+            currentUser && currentUser.role === 'teacher' ? (
+              <CreateAssignmentPage addAssignment={handleAddAssignment} />
+            ) : (
+              <Navigate to="/assignments/:classId" />
             )
           } 
         />

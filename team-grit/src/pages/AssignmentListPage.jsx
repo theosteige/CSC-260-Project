@@ -5,7 +5,7 @@ import './AssignmentListPage.css';
 import '../components/BackButton';
 import BackButton from '../components/BackButton';
 
-function AssignmentListPage() {
+function AssignmentListPage({ currentUser }) {
     // state vars
     const [assignments, setAssignments] = useState([])
     // used to switch pages
@@ -32,9 +32,21 @@ function AssignmentListPage() {
         navigate(`/code/${assignmentId}`);
     };
 
+    const handleAddAssignment = () => {
+      console.log(currentClass.id);
+      navigate(`/create-assignment`);
+    }
+
     return (
         <div className='assignment-list-page'>
-            <BackButton />
+            <div className="header">
+              <BackButton />
+              {currentUser.role === 'teacher' && (
+                <button className="header-button" onClick={handleAddAssignment}>
+                  Add Assignment
+                </button>
+              )}
+            </div>
             <h2>Assignments for {currentClass.name}</h2>
             {currentClass.description}
             <div className='assignment-list'>
