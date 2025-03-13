@@ -18,11 +18,35 @@ function CreateClassPage({ addClass }) {
     }
 
     const newClass = {
-      id : 4,
       code : classCode, // Replace with input or generated value as needed
       name : className,
       term : classTerm,
-      
+      start_date : "2025-01-06T06:00:00Z",
+      end_date : "2025-03-14T18:00:00Z",
+      teacher : 1, 
+      students : [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+    ]
+
       // id : 10 // Replace with input or default value
       // Remove "roster" if the API does not expect it, or handle it separately if needed
     };

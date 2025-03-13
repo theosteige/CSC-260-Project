@@ -22,7 +22,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
 class ClassSerialzer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ('id', 'code', 'name', 'term')
+        fields = ('id', 'code', 'name', 'term', 'start_date', 'end_date', 'teacher', 'students')
 
 #
 # Assignment info

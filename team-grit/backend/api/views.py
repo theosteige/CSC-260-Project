@@ -8,6 +8,7 @@ from .serializers import StudentSerializer, ProfessorSerializer, ClassSerialzer
 from .serializers import AssignmentSerializer, AssignmentGroupSerializer
 from .serializers import SubmissionSerializer, CurrentSubmissionSerializer, CommentSerializer, SubmissionFileSerializer
 from .models import User, Class, Assignment, AssignmentGroup, AssignmentSubmission, AssignmentSubmissionComment, AssignmentSubmissionFile
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -34,6 +35,12 @@ class ProfessorView(viewsets.ModelViewSet):
 class ClassView(viewsets.ModelViewSet):
     serializer_class = ClassSerialzer
     queryset = Class.objects.all()
+
+    # @action(detail=True)
+    # def create(self, request, pk=None):
+    #     queryset = Class.objects.filter(name=pk)
+    #     serializer = ClassSerialzer(queryset, many=True)
+    #     return Response(serializer.data)
 
     def list(self, request):
         teacher = request.GET.get('teacher', None)
