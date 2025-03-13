@@ -20,7 +20,8 @@ function App() {
   };
 
   const handleAddAssignment = (newAssignment) => {
-    setClasses(prevAssignment => [...prevAssignment, newAssignment]);
+    // This function can update your assignments state if needed
+    console.log('New assignment created:', newAssignment);
   };
 
   return (
@@ -71,7 +72,7 @@ function App() {
           } 
         />
         <Route 
-          path="/create-assignent" 
+          path="/create-assignment/:classId" 
           element={
             currentUser && currentUser.role === 'teacher' ? (
               <CreateAssignmentPage addAssignment={handleAddAssignment} />
