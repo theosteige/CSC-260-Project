@@ -1,38 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ClassList from '../components/ClassList';
-import './ClassListPage.css';
 import BackButton from '../components/BackButton';
+import './ClassListPage.css';
 
-
-function ClassListPage() {
+function ClassListPage({ currentUser }) {
   const [classes, setClasses] = useState([]);
   const navigate = useNavigate();
 
-  const getClasses = async (setClasses) => {
-    const url = "http://localhost:8000/api/classes/";
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const json = await response.json();
-    setClasses(json);
-  }
-
   useEffect(() => {
-    getClasses(setClasses);
+    // Fetch classes from your Django backend
+    fetch('http://127.0.0.1:8000/api/classes/')
+      .then(response => response.json())
+      .then(data => setClasses(data))
+      .catch(error => console.error('Error fetching classes:', error));
   }, []);
 
   const handleSelectClass = (classId) => {
-    navigate(`/assignments/${classId}`, { state: { currentClass: classes[parseInt(classId)-1] }});
+    const selectedClass = classes.find((c) => c.id === classId);
+    navigate(`/assignments/${classId}`, { state: { currentClass: selectedClass } });
   };
 
   return (
-    <div className='class-list-page'>
-      <BackButton />
+    <div className="class-list-page">
+      <div className="header">
+        <BackButton />
+        {currentUser.role === 'teacher' && (
+          <button className="header-button">
+            Add Class
+          </button>
+        )}
+      </div>
       <h2>Classes</h2>
-      <div className='class-list'>
-      <ClassList classes={classes} onSelectClass={handleSelectClass} />
+      <div className="class-list">
+        <ul>
+          {classes.map(cls => (
+            <li
+              key={cls.id}
+              onClick={() => handleSelectClass(cls.id)}
+              style={{ cursor: 'pointer' }}
+            >
+              {cls.code} - {cls.name} ({cls.term})
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
