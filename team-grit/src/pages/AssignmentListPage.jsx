@@ -6,8 +6,6 @@ import '../components/BackButton';
 import BackButton from '../components/BackButton';
 
 function AssignmentListPage() {
-    // extract classID from url
-    const { classId } = useParams();
     // state vars
     const [assignments, setAssignments] = useState([])
     // used to switch pages
@@ -22,12 +20,13 @@ function AssignmentListPage() {
           throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json();
-        setAssignments(json);
+        const classAssignments = json.filter(assignment => assignment.course === currentClass.id);
+        setAssignments(classAssignments);
       }
 
     useEffect(() => {
         getAssignments(setAssignments);
-      }, [classId]);
+      }, [currentClass.id]);
 
     const handleSelectAssignment = (assignmentId) => {
         navigate(`/code/${assignmentId}`);
