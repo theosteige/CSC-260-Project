@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './CodeSection.css';
 
-function CodeSection({ onCodeChange }) {
+function CodeSection({ onCodeChange, codeContent }) {
   const [code, setCode] = useState('');
   const fileInputRef = useRef(null);
 
@@ -23,8 +23,8 @@ function CodeSection({ onCodeChange }) {
   };
 
   let lines = '';
-  if (code != '') {
-    lines = code.split('\n').flatMap((content, index) => index + 1 + '    ' + content + '\n' );
+  if (codeContent != '') {
+    lines = codeContent.replace(/\\n/g, "\n").split('\n').flatMap((content, index) => index + 1 + '    ' + content + '\n' );
   }
 
   return (

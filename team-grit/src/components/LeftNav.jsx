@@ -1,19 +1,25 @@
 import React from 'react';
 import './LeftNav.css';
 
-function LeftNav({ files, selectedFile, onFileSelect }) {
+function LeftNav({ files, selectedFile, users, selectedUser, onFileSelect, onUserSelect }) {
   const renderFiles = files.map(file => {
-    let className = 'left-nav-item';
-    if (file.id === selectedFile) {
-      className += ' selected';
-    }
     return (
       <li
         key={file.id}
-        onClick={() => onFileSelect(file.id)}
-        className={className}
+        onClick={() => onFileSelect(file)}
       >
         {file.name}
+      </li>
+    );
+  });
+
+  const renderUsers = users.map(user => {
+    return (
+      <li
+        key={user.id}
+        onClick={() => onUserSelect(user)}
+      >
+        {user.name}
       </li>
     );
   });
@@ -23,7 +29,11 @@ function LeftNav({ files, selectedFile, onFileSelect }) {
       <div className='left-nav'>
       <h3>Group Members</h3>
       <ul>
-        {renderFiles}
+      {renderUsers}
+      </ul>
+      <h3>Files</h3>
+      <ul>
+      {renderFiles}
       </ul>
       </div>
     </div>

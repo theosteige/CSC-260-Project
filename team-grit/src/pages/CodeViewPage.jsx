@@ -8,32 +8,60 @@ import BackButton from '../components/BackButton';
 
 function CodeViewPage() {
   const { assignmentId } = useParams();
+  const [submissions, setSubmissions] = useState([]);
+  const [users, setUsers] = useState([]);
+  
+  const [selectedUser, setSelectedUser] = useState(null);
   const [files, setFiles] = useState([]);
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [codeContent, setCodeContent] = useState('');
   const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    // Placeholder for fetching files and comments for the given assignmentId
-    const dummyFiles = [
-      { id: 'student1-file1', name: 'student1' },
-      { id: 'student2-file1', name: 'student2' }
-    ];
-    setFiles(dummyFiles);
-    if (dummyFiles.length > 0) {
-      setSelectedFile(dummyFiles[0].id);
-      setCodeContent('// Code for ' + dummyFiles[0].id);
+  const getSubmissions = async (setSubmissions) => {
+    const url = "http://localhost:8000/api/submit/";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
     }
-    setComments([
-      { id: 'comment1', author: 'Peer1', text: 'Great code!', line:'1' },
-      { id: 'comment2', author: 'Peer2', text: 'Consider refactoring this function.', line:'2' }
-    ]);
-  }, [assignmentId]);
+    const json = await response.json();
+    const assignmentSubmissions = json.filter(submission => submission.assignment === parseInt(assignmentId));
+    setSubmissions(assignmentSubmissions);
+  }
 
-  const handleFileSelect = (fileId) => {
-    setSelectedFile(fileId);
-    // Update codeContent as necessary based on file selection
-    setCodeContent('// Code for ' + fileId);
+  const getUsers = async (setUsers) => {
+    const url = "http://localhost:8000/api/students/";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+
+    let groupUserIds = [];
+    submissions.forEach(submission => groupUserIds.push(submission.user));
+
+    const releventUsers = json.filter(user => groupUserIds.includes(user.id));
+    
+    setUsers(releventUsers);
+  }
+
+  useEffect(() => {
+    getSubmissions(setSubmissions);
+  }, [assignmentId]);
+  
+  useEffect(() => {
+    getUsers(setUsers);
+  }, [submissions]);
+
+  const handleFileSelect = (file) => {
+    setSelectedFile(file);
+    setCodeContent(file.content);
+  };
+
+  const handleUserSelect = (user) => {
+    setSelectedUser(user);
+    const userFiles = submissions.filter(submission => submission.user === user.id)[0].files;
+    setFiles(userFiles);
   };
 
   const handleCodeChange = (newCode) => {
@@ -53,7 +81,7 @@ function CodeViewPage() {
   return (
     <div className='code-view-page'>
       <BackButton />
-      <LeftNav files={files} selectedFile={selectedFile} onFileSelect={handleFileSelect} />
+      <LeftNav files={files} selectedFile={selectedFile} users={users} selectedUser={selectedUser} onFileSelect={handleFileSelect} onUserSelect={handleUserSelect}/>
       <CodeSection codeContent={codeContent} onCodeChange={handleCodeChange} />
       <CommentsSection comments={comments} onAddComment={handleAddComment} />
     </div>
