@@ -10,12 +10,11 @@ function CodeViewPage({ currentUser }) {
   const { assignmentId } = useParams();
   const [submissions, setSubmissions] = useState([]);
   const [groups, setGroups] = useState([]);
-
-  const [selectedSubmission, setSelectedSubmission] = useState([]);
+  // files for one user V
   const [files, setFiles] = useState([]);
-
   const [codeContent, setCodeContent] = useState('');
   const [comments, setComments] = useState([]);
+
 
   const getSubmissions = async (setSubmissions) => {
     const url = "http://127.0.0.1:8000/api/assignments/"+ assignmentId +"/submissions/";
@@ -37,30 +36,43 @@ function CodeViewPage({ currentUser }) {
     setGroups(json);
   }
 
-  const getUserSubmission = async (setFiles, assignmentId, selectedUserId) => {
-    const url = "http://127.0.0.1:8000/api/assignments/"+assignmentId+"/submissions/?student="+selectedUserId+"&current=true";
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+  const getUserSubmissions = async (assignmentId, selectedUserId) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/submit/');
+      if (!response.ok) {
+        throw new Error('Failed to fetch submissions');
+      }
+      const submissions = await response.json();
+      // Convert assignmentId and selectedUserId to numbers in case they are strings
+      const filteredSubmissions = submissions.filter(item =>
+        item.assignment === Number(assignmentId) && item.user === Number(selectedUserId)
+      );
+      return filteredSubmissions;
+    } catch (error) {
+      console.error(error);
+      return [];
     }
-    const json = await response.json(); 
-    setSelectedSubmission(json);
-  }
+  };
+  
 
   useEffect(() => {
     getSubmissions(setSubmissions);
     getGroups(setGroups);
   }, [assignmentId]);
-
+  
+  //////
   const handleFileSelect = (file) => {
     setCodeContent(file.content);
   };
 
-  const handleUserSelect = (user) => {
-    getUserSubmission(setSelectedSubmission, assignmentId, user.id);
-    const userFiles = ((selectedSubmission.length > 0) ? selectedSubmission[0].files : null);
-    setFiles(userFiles);
+  const handleUserSelect = async (user) => {
+    // Await the filtered submissions from the API call
+    const filteredSubmissions = await getUserSubmissions(assignmentId, user.id);
+    const currentUserFiles = filteredSubmissions.flatMap(submission => submission.files || []);
+    // console.log(currentUserFiles);
+    setFiles(currentUserFiles);
   };
+  
 
   const handleCodeChange = (newCode) => {
     setCodeContent(newCode);
