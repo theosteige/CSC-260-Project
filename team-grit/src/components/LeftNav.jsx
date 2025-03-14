@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import './LeftNav.css';
 
-function LeftNav({ files, groups, onFileSelect, onUserSelect }) {
+function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser }) {
   const renderFiles = files?.map(file => {
     return (
       <li
@@ -13,15 +13,16 @@ function LeftNav({ files, groups, onFileSelect, onUserSelect }) {
     );
   });
 
-  const userInGroup = () => {
-    
+  const userInGroup = (group) => {
+    const groupUserIds = group.users.map(user => user.id);
+    return groupUserIds.includes(currentUser.id);
   }
 
   const renderGroups = groups.map(group => {
     return (
       <Fragment key={group.id}><h3>Group {group.id}</h3>
       <ul>
-        {group.users.map(user => <li onClick={() => onUserSelect(user)} key={user.id}>{user.name}</li>)}
+        {(userInGroup(group) || currentUser.role === 'teacher') && group.users.map(user => <li onClick={() => onUserSelect(user)} key={user.id}>{user.name}</li>)}
       </ul>
       </Fragment>
     );

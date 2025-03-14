@@ -79,7 +79,7 @@ function CodeViewPage({ currentUser }) {
   return (
     <div className='code-view-page'>
       <BackButton />
-      <LeftNav files={files} groups={groups} onFileSelect={handleFileSelect} onUserSelect={handleUserSelect}/>
+      <LeftNav files={files} groups={groups} onFileSelect={handleFileSelect} onUserSelect={handleUserSelect} currentUser={currentUser}/>
       <CodeSection codeContent={codeContent} onCodeChange={handleCodeChange} />
       <CommentsSection comments={comments} onAddComment={handleAddComment} />
     </div>
