@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './LeftNav.css';
 
-function LeftNav({ files, selectedFile, users, selectedUser, onFileSelect, onUserSelect }) {
-  const renderFiles = files.map(file => {
+function LeftNav({ files, groups, onFileSelect, onUserSelect }) {
+  const renderFiles = files?.map(file => {
     return (
       <li
         key={file.id}
@@ -13,24 +13,24 @@ function LeftNav({ files, selectedFile, users, selectedUser, onFileSelect, onUse
     );
   });
 
-  const renderUsers = users.map(user => {
+  const userInGroup = () => {
+    
+  }
+
+  const renderGroups = groups.map(group => {
     return (
-      <li
-        key={user.id}
-        onClick={() => onUserSelect(user)}
-      >
-        {user.name}
-      </li>
+      <Fragment key={group.id}><h3>Group {group.id}</h3>
+      <ul>
+        {group.users.map(user => <li onClick={() => onUserSelect(user)} key={user.id}>{user.name}</li>)}
+      </ul>
+      </Fragment>
     );
   });
 
   return (
     <div className="left-nav-container">
       <div className='left-nav'>
-      <h3>Group Members</h3>
-      <ul>
-      {renderUsers}
-      </ul>
+      {renderGroups}
       <h3>Files</h3>
       <ul>
       {renderFiles}

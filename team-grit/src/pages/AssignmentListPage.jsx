@@ -11,17 +11,13 @@ function AssignmentListPage({ currentUser }) {
   const currentClass = location.state.currentClass; // full class object with id, name, description, etc.
 
   const getAssignments = async (setAssignments) => {
-    const url = "http://localhost:8000/api/assignments/";
+    const url = "http://127.0.0.1:8000/api/classes/" + currentClass.id + "/assignments/";
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    // Filter assignments that belong to the current class using its id
-    const classAssignments = json.filter(
-      (assignment) => assignment.course === currentClass.id
-    );
-    setAssignments(classAssignments);
+    setAssignments(json);
   };
 
   useEffect(() => {

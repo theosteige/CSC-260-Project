@@ -8,8 +8,8 @@ function ClassListPage({ currentUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch classes from your Django backend
-    fetch('http://127.0.0.1:8000/api/classes/')
+    // Fetch classes from the Django backend
+    fetch('http://127.0.0.1:8000/api/classes/?' + currentUser.role + '=' + currentUser.id)
       .then(response => response.json())
       .then(data => setClasses(data))
       .catch(error => console.error('Error fetching classes:', error));

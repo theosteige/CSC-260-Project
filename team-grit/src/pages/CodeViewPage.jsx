@@ -6,61 +6,59 @@ import CommentsSection from '../components/CommentsSection';
 import './CodeViewPage.css'
 import BackButton from '../components/BackButton';
 
-function CodeViewPage() {
+function CodeViewPage({ currentUser }) {
   const { assignmentId } = useParams();
   const [submissions, setSubmissions] = useState([]);
-  const [users, setUsers] = useState([]);
-  
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [groups, setGroups] = useState([]);
+
+  const [selectedSubmission, setSelectedSubmission] = useState([]);
   const [files, setFiles] = useState([]);
 
-  const [selectedFile, setSelectedFile] = useState(null);
   const [codeContent, setCodeContent] = useState('');
   const [comments, setComments] = useState([]);
 
   const getSubmissions = async (setSubmissions) => {
-    const url = "http://localhost:8000/api/submit/";
+    const url = "http://127.0.0.1:8000/api/assignments/"+ assignmentId +"/submissions/";
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    const assignmentSubmissions = json.filter(submission => submission.assignment === parseInt(assignmentId));
-    setSubmissions(assignmentSubmissions);
+    setSubmissions(json);
   }
 
-  const getUsers = async (setUsers) => {
-    const url = "http://localhost:8000/api/students/";
+  const getGroups = async (setGroups) => {
+    const url = "http://127.0.0.1:8000/api/assignments/"+ assignmentId + "/groups/";
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    const json = await response.json();
+    const json = await response.json(); 
+    setGroups(json);
+  }
 
-    let groupUserIds = [];
-    submissions.forEach(submission => groupUserIds.push(submission.user));
-
-    const releventUsers = json.filter(user => groupUserIds.includes(user.id));
-    
-    setUsers(releventUsers);
+  const getUserSubmission = async (setFiles, assignmentId, selectedUserId) => {
+    const url = "http://127.0.0.1:8000/api/assignments/"+assignmentId+"/submissions/?student="+selectedUserId+"&current=true";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json(); 
+    setSelectedSubmission(json);
   }
 
   useEffect(() => {
     getSubmissions(setSubmissions);
+    getGroups(setGroups);
   }, [assignmentId]);
-  
-  useEffect(() => {
-    getUsers(setUsers);
-  }, [submissions]);
 
   const handleFileSelect = (file) => {
-    setSelectedFile(file);
     setCodeContent(file.content);
   };
 
   const handleUserSelect = (user) => {
-    setSelectedUser(user);
-    const userFiles = submissions.filter(submission => submission.user === user.id)[0].files;
+    getUserSubmission(setSelectedSubmission, assignmentId, user.id);
+    const userFiles = ((selectedSubmission.length > 0) ? selectedSubmission[0].files : null);
     setFiles(userFiles);
   };
 
@@ -81,7 +79,7 @@ function CodeViewPage() {
   return (
     <div className='code-view-page'>
       <BackButton />
-      <LeftNav files={files} selectedFile={selectedFile} users={users} selectedUser={selectedUser} onFileSelect={handleFileSelect} onUserSelect={handleUserSelect}/>
+      <LeftNav files={files} groups={groups} onFileSelect={handleFileSelect} onUserSelect={handleUserSelect}/>
       <CodeSection codeContent={codeContent} onCodeChange={handleCodeChange} />
       <CommentsSection comments={comments} onAddComment={handleAddComment} />
     </div>
