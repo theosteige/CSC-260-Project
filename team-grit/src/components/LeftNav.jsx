@@ -28,7 +28,7 @@ function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser }) {
   const renderFiles = files?.length > 0 
   ? files.map(file => (
       <li key={file.id} onClick={() => onFileSelect(file)}>
-        {file.name}
+        Submission {file.submission}, file name: {file.name}
       </li>
     ))
   : null;
