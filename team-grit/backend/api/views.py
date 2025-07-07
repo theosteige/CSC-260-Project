@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.http import HttpResponseNotFound
 from django.http import QueryDict
-from .serializers import StudentSerializer, ProfessorSerializer, ClassSerialzer
+from .serializers import StudentSerializer, ProfessorSerializer, ClassSerializer
 from .serializers import AssignmentSerializer, AssignmentGroupSerializer
 from .serializers import SubmissionSerializer, CurrentSubmissionSerializer, CommentSerializer, SubmissionFileSerializer
 from .models import User, Class, Assignment, AssignmentGroup, AssignmentSubmission, AssignmentSubmissionComment, AssignmentSubmissionFile
@@ -33,13 +33,13 @@ class ProfessorView(viewsets.ModelViewSet):
     queryset = User.objects.filter(is_teacher=True)
 
 class ClassView(viewsets.ModelViewSet):
-    serializer_class = ClassSerialzer
+    serializer_class = ClassSerializer
     queryset = Class.objects.all()
 
     # @action(detail=True)
     # def create(self, request, pk=None):
     #     queryset = Class.objects.filter(name=pk)
-    #     serializer = ClassSerialzer(queryset, many=True)
+    #     serializer = ClassSerializer(queryset, many=True)
     #     return Response(serializer.data)
 
     def list(self, request):
@@ -47,17 +47,17 @@ class ClassView(viewsets.ModelViewSet):
         student = request.GET.get('student', None)
         if (teacher is None and student is None):
             # list all classes: api/classes
-            serializer = ClassSerialzer(self.queryset, many=True)
+            serializer = ClassSerializer(self.queryset, many=True)
             return Response(serializer.data)
         elif student is None:
             # list classes for given teacher: api/classes/?teacher=<id>
             queryset = self.queryset.filter(teacher__id=teacher)
-            serializer = ClassSerialzer(queryset, many=True)
+            serializer = ClassSerializer(queryset, many=True)
             return Response(serializer.data)
         elif teacher is None:
             # list classes for given student: api/classes/?student=<id>
             queryset = self.queryset.filter(students__id=student)
-            serializer = ClassSerialzer(queryset, many=True)
+            serializer = ClassSerializer(queryset, many=True)
             return Response(serializer.data)
         else:
             HttpResponseNotFound(f"Class(es) not found")
