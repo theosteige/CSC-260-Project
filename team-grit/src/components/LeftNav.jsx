@@ -16,7 +16,7 @@ function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser }) {
       <h3>Group {group.id}</h3>
       <ul>
         {group.users.map(user => (
-          // onUserSelect -- we want ot show files selected user has submitted
+          // onUserSelect -- we want to show files selected user has submitted
           <li onClick={() => onUserSelect(user)} key={user.id}>
             {user.name}
           </li>
