@@ -8,7 +8,6 @@ import BackButton from '../components/BackButton';
 
 function CodeViewPage({ currentUser }) {
   const { assignmentId } = useParams();
-  const [submissions, setSubmissions] = useState([]);
   const [groups, setGroups] = useState([]);
   // files for one user V
   const [files, setFiles] = useState([]);
@@ -16,25 +15,6 @@ function CodeViewPage({ currentUser }) {
   const [comments, setComments] = useState([]);
 
 
-  const getSubmissions = async (setSubmissions) => {
-    const url = "http://127.0.0.1:8000/api/assignments/"+ assignmentId +"/submissions/";
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const json = await response.json();
-    setSubmissions(json);
-  }
-
-  const getGroups = async (setGroups) => {
-    const url = "http://127.0.0.1:8000/api/assignments/"+ assignmentId + "/groups/";
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const json = await response.json(); 
-    setGroups(json);
-  }
 
   const getUserSubmissions = async (assignmentId, selectedUserId) => {
     try {
@@ -56,8 +36,17 @@ function CodeViewPage({ currentUser }) {
   
 
   useEffect(() => {
-    getSubmissions(setSubmissions);
-    getGroups(setGroups);
+    const fetchGroups = async () => {
+      const url = `http://127.0.0.1:8000/api/assignments/${assignmentId}/groups/`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const json = await response.json();
+      setGroups(json);
+    };
+
+    fetchGroups();
   }, [assignmentId]);
   
   //////
