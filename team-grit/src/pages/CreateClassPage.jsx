@@ -130,10 +130,10 @@ function CreateClassPage({ teacherID, addClass }) {
         </div>
         <div className="form-group">
           <label>Select End Date:</label>
-          <input 
-            type="date" 
-            value={startDate} 
-            onChange={(e) => setEndDate(e.target.value)} 
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
             required
           />
         </div>
