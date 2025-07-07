@@ -1,19 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import './CodeSection.css';
 
 function CodeSection({ onCodeChange, codeContent }) {
-  const [code, setCode] = useState('');
   const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-  
-      reader.onload = (e) => {
-        setCode(e.target.result);
+
+      reader.onload = (event) => {
+        onCodeChange(event.target.result);
       };
-  
+
       reader.readAsText(file);
     }
   };
@@ -23,8 +22,11 @@ function CodeSection({ onCodeChange, codeContent }) {
   };
 
   let lines = '';
-  if (codeContent != '') {
-    lines = codeContent.replace(/\\n/g, "\n").split('\n').flatMap((content, index) => index + 1 + '    ' + content + '\n' );
+  if (codeContent) {
+    lines = codeContent
+      .split('\n')
+      .map((content, index) => `${index + 1}    ${content}\n`)
+      .join('');
   }
 
   return (

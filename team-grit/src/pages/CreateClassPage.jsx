@@ -9,8 +9,7 @@ function CreateClassPage({ teacherID, addClass }) {
   const [classTerm, setClassTerm] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [teacher, setTeacher] = useState(teacherID);
-  const [students, setStudents] = useState('');
+  const teacher = teacherID;
   
   const [error, setError] = useState('');
 
@@ -130,10 +129,10 @@ function CreateClassPage({ teacherID, addClass }) {
         </div>
         <div className="form-group">
           <label>Select End Date:</label>
-          <input 
-            type="date" 
-            value={startDate} 
-            onChange={(e) => setEndDate(e.target.value)} 
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
             required
           />
         </div>
