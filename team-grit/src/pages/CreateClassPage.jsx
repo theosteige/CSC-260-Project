@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import './CreateClassPage.css';
 
 function CreateClassPage({ teacherID, addClass }) {
@@ -75,7 +76,8 @@ function CreateClassPage({ teacherID, addClass }) {
         addClass(createdClass);
       }
 
-      navigate('/classes');
+      // Replace current history entry instead of adding new one
+      navigate('/classes', { replace: true });
     } catch (err) {
       console.error('Error creating class:', err);
       setError('An error occurred while creating the class.');
@@ -84,11 +86,7 @@ function CreateClassPage({ teacherID, addClass }) {
 
   return (
     <div className="create-class-page">
-      <div className="header">
-        <button className="header-button" onClick={() => navigate(-1)}>
-          Back
-        </button>
-      </div>
+      <BackButton to="/classes" />
       <h2>Create New Class</h2>
       <form className="create-class-form" onSubmit={handleSubmit}>
         <div className="form-group">

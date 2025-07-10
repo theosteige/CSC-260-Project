@@ -24,5 +24,8 @@
   
   .left-nav li.selected {
     font-weight: bold;
+    background-color: #e3f2fd;
+    border-left: 3px solid #1976d2;
+    padding-left: 8px;
   }
   

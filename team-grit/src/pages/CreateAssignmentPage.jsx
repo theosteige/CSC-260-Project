@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import './CreateAssignmentPage.css';
 
 function CreateAssignmentPage({ addAssignment }) {
@@ -55,7 +56,8 @@ function CreateAssignmentPage({ addAssignment }) {
       }
 
       // Navigate back to the assignment list page, passing the full currentClass object
-      navigate(`/assignments/${currentClass.id}`, { state: { currentClass } });
+      // Replace current history entry instead of adding new one
+      navigate(`/assignments/${currentClass.id}`, { state: { currentClass }, replace: true });
     } catch (err) {
       console.error('Error creating assignment:', err);
       setError('An error occurred while creating the assignment.');
@@ -64,11 +66,7 @@ function CreateAssignmentPage({ addAssignment }) {
 
   return (
     <div className="create-assignment-page">
-      <div className="header">
-        <button className="header-button" onClick={() => navigate(-1)}>
-          Back
-        </button>
-      </div>
+      <BackButton to={`/assignments/${currentClass.id}`} />
       <h2>Create New Assignment</h2>
       <form className="create-assignment-form" onSubmit={handleSubmit}>
         <div className="form-group">

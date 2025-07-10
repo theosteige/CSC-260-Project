@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import './LeftNav.css';
 
-function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser }) {
+function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser, selectedFile, selectedUser }) {
 
   const userInGroup = (group) => {
     const groupUserIds = group.users.map(user => user.id);
@@ -17,7 +17,11 @@ function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser }) {
       <ul>
         {group.users.map(user => (
           // onUserSelect -- we want to show files selected user has submitted
-          <li onClick={() => onUserSelect(user)} key={user.id}>
+          <li 
+            onClick={() => onUserSelect(user)} 
+            key={user.id}
+            className={selectedUser && selectedUser.id === user.id ? 'selected' : ''}
+          >
             {user.name}
           </li>
         ))}
@@ -27,7 +31,11 @@ function LeftNav({ files, groups, onFileSelect, onUserSelect, currentUser }) {
 
   const renderFiles = files?.length > 0 
   ? files.map(file => (
-      <li key={file.id} onClick={() => onFileSelect(file)}>
+      <li 
+        key={file.id} 
+        onClick={() => onFileSelect(file)}
+        className={selectedFile && selectedFile.id === file.id ? 'selected' : ''}
+      >
         Submission {file.submission}, file name: {file.name}
       </li>
     ))

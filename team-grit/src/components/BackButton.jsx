@@ -2,12 +2,20 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BackButton.css'
 
-function BackButton() {
+function BackButton({ to }) {
     const navigate = useNavigate();
+
+    const handleBack = () => {
+        if (to) {
+            navigate(to);
+        } else {
+            navigate(-1);
+        }
+    };
 
     return (
         <div className='back-button'>
-        <button onClick = {() => navigate(-1)}>
+        <button onClick={handleBack}>
             Back
         </button>
         </div>

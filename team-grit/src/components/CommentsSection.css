@@ -28,3 +28,18 @@
 .submit-button {
   margin-top: 5px;
 }
+
+.file-info {
+  background-color: #f0f0f0;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.no-file-selected {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
