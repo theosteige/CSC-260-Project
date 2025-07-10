@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AssignmentList from '../components/AssignmentList';
+import CreateAssignmentModal from '../components/CreateAssignmentModal';
 import './AssignmentListPage.css';
 import BackButton from '../components/BackButton';
 
 function AssignmentListPage({ currentUser }) {
   const [assignments, setAssignments] = useState([]);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const currentClass = location.state.currentClass; // full class object with id, name, description, etc.
@@ -28,27 +30,61 @@ function AssignmentListPage({ currentUser }) {
     navigate(`/code/${assignmentId}`);
   };
 
-  const handleAddAssignment = () => {
-    // Pass the full currentClass object to the create-assignment page
-    navigate(`/create-assignment/${currentClass.id}`, { state: { currentClass } });
+  const handleAddAssignment = (newAssignment) => {
+    setAssignments(prevAssignments => [...prevAssignments, newAssignment]);
+  };
+
+  const handleOpenCreateModal = () => {
+    setIsCreateModalOpen(true);
+  };
+
+  const handleCloseCreateModal = () => {
+    setIsCreateModalOpen(false);
   };
 
   return (
-    <div className='assignment-list-page'>
-      <div className="header">
-        <BackButton />
-        {currentUser.role === 'teacher' && (
-          <button className="header-button" onClick={handleAddAssignment}>
-            Add Assignment
-          </button>
-        )}
-      </div>
-      <h2>Assignments for {currentClass.name}</h2>
-      <p>{currentClass.description}</p>
-      <div className='assignment-list'>
-        <AssignmentList
-          assignments={assignments}
-          onSelectAssignment={handleSelectAssignment}
+    <div className='page assignment-list-page'>
+      <div className="container">
+        <header className="page-header">
+          <div className="header-content">
+            <div className="header-left">
+              <BackButton />
+              <div className="header-text">
+                <h1 className="page-title">{currentClass.name}</h1>
+                <p className="page-subtitle">Assignments & Code Reviews</p>
+              </div>
+            </div>
+            {currentUser.role === 'teacher' && (
+              <button className="btn btn-primary" onClick={handleOpenCreateModal}>
+                <span className="btn-icon">➕</span>
+                Add Assignment
+              </button>
+            )}
+          </div>
+        </header>
+        
+        <main className="assignments-content">
+          <div className="class-info-card card">
+            <div className="class-details">
+              <div className="class-code-badge">{currentClass.code}</div>
+              <h3 className="class-title">{currentClass.name}</h3>
+              <p className="class-description">{currentClass.description}</p>
+            </div>
+          </div>
+          
+          <div className="assignments-section">
+            <AssignmentList
+              assignments={assignments}
+              onSelectAssignment={handleSelectAssignment}
+            />
+          </div>
+        </main>
+        
+        <CreateAssignmentModal
+          isOpen={isCreateModalOpen}
+          onClose={handleCloseCreateModal}
+          currentClass={currentClass}
+          addAssignment={handleAddAssignment}
         />
       </div>
     </div>

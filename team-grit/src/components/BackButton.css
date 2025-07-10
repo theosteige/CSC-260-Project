@@ -1,12 +1,29 @@
+/* Modern BackButton Styles */
+
 .back-button {
-    text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-weight: 500;
 }
 
-.back-button button {
-    padding: 10px;
-    background-color: #862633;
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+.back-icon {
+  font-size: var(--text-lg);
+  transition: transform var(--transition-fast);
+}
+
+.back-button:hover .back-icon {
+  transform: translateX(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .back-button {
+    padding: var(--spacing-sm);
+    font-size: var(--text-sm);
+  }
+  
+  .back-icon {
+    font-size: var(--text-md);
+  }
 }

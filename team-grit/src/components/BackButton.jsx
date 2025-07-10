@@ -14,11 +14,10 @@ function BackButton({ to }) {
     };
 
     return (
-        <div className='back-button'>
-        <button onClick={handleBack}>
+        <button className='btn btn-ghost back-button' onClick={handleBack}>
+            <span className="back-icon">←</span>
             Back
         </button>
-        </div>
     );
 }
 

@@ -48,22 +48,46 @@ function LoginPage({ onLoginSuccess }) {
   };
 
   return (
-    <div className="login-container">
-      <img src={logo} alt="Team Grit Logo" />
-      <h2>Code Review Login</h2>
-      <div className="login-form">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Email: </label>
-            <input 
-              type="text" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-            />
+    <div className="page login-page">
+      <div className="container">
+        <div className="login-container">
+          <div className="login-card card">
+            <div className="login-header">
+              <img src={logo} alt="Team Grit Logo" className="login-logo" />
+              <h1 className="login-title">Team Grit</h1>
+              <p className="login-subtitle">Code Review & Assignment Platform</p>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="login-form">
+              <div className="form-group">
+                <label className="form-label">Email Address</label>
+                <input 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="form-input"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              
+              {error && (
+                <div className="error-message">
+                  <span className="error-icon">⚠️</span>
+                  {error}
+                </div>
+              )}
+              
+              <button type="submit" className="btn btn-primary btn-lg login-button">
+                Sign In
+              </button>
+            </form>
+            
+            <div className="login-footer">
+              <p className="login-help">Enter your email to access the platform</p>
+            </div>
           </div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          <button type="submit">Login</button>
-        </form>
+        </div>
       </div>
     </div>
   );

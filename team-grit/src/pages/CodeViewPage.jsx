@@ -225,30 +225,35 @@ function CodeViewPage({ currentUser }) {
   };
 
   return (
-    <div className='code-view-page'>
-      <BackButton />
-      <LeftNav 
-        files={files} 
-        groups={groups} 
-        onFileSelect={handleFileSelect} 
-        onUserSelect={handleUserSelect} 
-        currentUser={currentUser}
-        selectedFile={selectedFile}
-        selectedUser={selectedUser}
-      />
-      <CodeSection 
-        codeContent={codeContent} 
-        onCodeChange={handleCodeChange} 
-        onFileUpload={handleFileUpload}
-        comments={selectedFile ? comments[selectedFile.id] || [] : []}
-      />
-      <CommentsSection 
-        comments={selectedFile ? comments[selectedFile.id] || [] : []} 
-        onAddComment={handleAddComment} 
-        loading={loadingComments}
-        selectedFile={selectedFile}
-        selectedUser={selectedUser}
-      />
+    <div className='page code-view-page'>
+      <div className="code-view-header">
+        <BackButton />
+        <h1 className="code-view-title">Code Review</h1>
+      </div>
+      <div className="code-view-content">
+        <LeftNav 
+          files={files} 
+          groups={groups} 
+          onFileSelect={handleFileSelect} 
+          onUserSelect={handleUserSelect} 
+          currentUser={currentUser}
+          selectedFile={selectedFile}
+          selectedUser={selectedUser}
+        />
+        <CodeSection 
+          codeContent={codeContent} 
+          onCodeChange={handleCodeChange} 
+          onFileUpload={handleFileUpload}
+          comments={selectedFile ? comments[selectedFile.id] || [] : []}
+        />
+        <CommentsSection 
+          comments={selectedFile ? comments[selectedFile.id] || [] : []} 
+          onAddComment={handleAddComment} 
+          loading={loadingComments}
+          selectedFile={selectedFile}
+          selectedUser={selectedUser}
+        />
+      </div>
     </div>
   );
 }

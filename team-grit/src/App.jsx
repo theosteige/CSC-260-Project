@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import './App.css';
 import LoginPage from './pages/LoginPage';
 import ClassListPage from './pages/ClassListPage';
 import AssignmentListPage from './pages/AssignmentListPage';
 import CodeViewPage from './pages/CodeViewPage';
-import CreateClassPage from './pages/CreateClassPage';
-import CreateAssignmentPage from './pages/CreateAssignmentPage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -55,26 +54,6 @@ function App() {
               <CodeViewPage currentUser={currentUser} />
             ) : (
               <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/create-class"
-          element={
-            currentUser && currentUser.role === 'teacher' ? (
-              <CreateClassPage teacherID={currentUser.id} addClass={handleAddClass} />
-            ) : (
-              <Navigate to="/classes" />
-            )
-          }
-        />
-        <Route
-          path="/create-assignment/:classId"
-          element={
-            currentUser && currentUser.role === 'teacher' ? (
-              <CreateAssignmentPage addAssignment={handleAddAssignment} />
-            ) : (
-              <Navigate to="/assignments/:classId" />
             )
           }
         />

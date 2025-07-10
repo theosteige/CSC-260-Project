@@ -1,7 +1,47 @@
-/* Styles for CodeViewPage */
+/* Modern CodeViewPage Styles */
+
 .code-view-page {
-    padding: 20px;
-    display: flex;
-    height: 100vh;
+  background: var(--off-white);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-view-header {
+  background: var(--white);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--medium-gray);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.code-view-title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--primary-maroon);
+  margin: 0;
+}
+
+.code-view-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .code-view-content {
+    flex-direction: column;
   }
   
+  .code-view-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .code-view-title {
+    font-size: var(--text-lg);
+  }
+}
